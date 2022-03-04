@@ -1,0 +1,56 @@
+#! /bin/bash
+
+#Check if nmap Tool exist ; 
+if [[ $(command -v nmap) ]]; then
+
+    #Check Number of Arguments
+    if [ $# -ne 3 ] ; then
+    
+    #Example of Input
+    echo "input error($*) : Exemple (./file 196.10.16.10 255 8080)"
+    echo "196.10.16.10 ->  IP Address"
+    echo "255 -> start in 10 to 255 "
+    echo "8080 -> Default Port of HTTP "
+    
+    #if nmap exist
+    else
+    
+      #Start Scanning in Port
+      echo "Scan In Port Number $3...."
+      #By nmap tool that take all argments and Scan
+      read -p "Create File for All Hosts / OpenHosts : (Y , N) " create
+      if [[ $create == "Y" || $create == "y" ]]; then 
+        echo "Start nmap : ......"
+        echo "Scanning Ports ...."
+        nmap -sT $1-$2 -p $3 >/dev/null -oG PortScan
+        echo "File PortScan Created"
+        cat PortScan | grep open > OpenPortScan
+        echo "File OPenPortScan Has Created"
+        cat OpenPortScan
+      else 
+        nmap -sT $1-$2 -p $3 
+      fi
+      #fin scannig and take All scanning in file PortScan
+      #And Open Device in Port in OpenPortScan FIle
+     fi
+    #If you dont Have nmap tool we help you to install 
+else 
+   #Enter Y to intall N to No 
+   read -p "You don't Have Nmap tool in your Device : insall (Y , N) : " install
+   
+   if [[ $install == "Y" || $install == "y" ]]; then 
+     echo "Search..."
+     sleep 1
+     #Intall nmap
+     apt-get install nmap
+     if [ $? == 0 ]
+     then
+       $0
+     else
+       clear
+       echo "---you don't have nmap tool in Your Repository---"
+     fi
+   fi
+fi
+
+
