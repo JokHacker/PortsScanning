@@ -10,7 +10,7 @@ To Execute File script use :
     ./File_Name (1)IP_Address in Domaine to start (2)Last Device for Example 255 (3) Port like HTTP or Any Port
 # Example : 
     ./PortsScanning 196.168.1.1 255 8080 
-# Some Ports : 
+# Most Ports used : 
     The Most Ports Useful : 
     8080 -> HTTP 
     53  -> DNS
